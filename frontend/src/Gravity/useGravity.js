@@ -234,7 +234,7 @@ const useGravity = () => {
             absorp = Vector.sub(g, this).scale((g.radius / this.radius) * 0.5);
             this.addSpeed(absorp);
 
-            garea = g.radius * g.radius * Math.PI;
+            garea = -g.radius * g.radius * Math.PI;
             this.currentRadius = Math.sqrt((area + garea * 3) / Math.PI);
             this.radius = Math.sqrt((area + garea) / Math.PI);
           }
