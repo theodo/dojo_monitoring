@@ -1,0 +1,12 @@
+{
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true,
+		"source.fixAll.stylelint": true
+	},
+
+	"[javascript]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	}
+}
