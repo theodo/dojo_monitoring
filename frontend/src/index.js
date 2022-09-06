@@ -8,6 +8,7 @@ import * as Sentry from "@sentry/react";
 import { BrowserTracing } from "@sentry/tracing";
 
 Sentry.init({
+  release: "gravity@1.0.0",
   dsn: "https://e71f8028115f480ba78269441e8d6bc8@sentry.theo.do/6",
   integrations: [new BrowserTracing()],
 

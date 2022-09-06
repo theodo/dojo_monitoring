@@ -18,11 +18,13 @@
   "scripts": {
     "start": "react-scripts start",
     "dev": "yarn start",
-    "prestart:prod": "GENERATE_SOURCEMAP=false yarn build",
+    "prestart:prod": "yarn build",
     "start:prod": "yarn run serve -s ./build",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "sentry:create-release": "sentry-cli releases new gravity@1.0.0 --finalize",
+    "sentry:upload-source-maps": "sentry-cli releases files gravity@1.0.0 upload-sourcemaps --ext js --ext map ./build"
   },
   "eslintConfig": {
     "extends": [
