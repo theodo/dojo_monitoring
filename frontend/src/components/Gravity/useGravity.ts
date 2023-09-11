@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useEffect } from 'react';
 import * as dat from 'dat.gui';
 
@@ -323,26 +324,6 @@ const useGravity = () => {
         this._latest.set(this);
         this.add(this._speed);
       },
-
-      // render: function(ctx) {
-      //     if (this._speed.length() > 12) this._speed.normalize().scale(12);
-
-      //     this._latest.set(this);
-      //     this.add(this._speed);
-
-      //     ctx.save();
-      //     ctx.fillStyle = ctx.strokeStyle = '#fff';
-      //     ctx.lineCap = ctx.lineJoin = 'round';
-      //     ctx.lineWidth = this.radius * 2;
-      //     ctx.beginPath();
-      //     ctx.moveTo(this.x, this.y);
-      //     ctx.lineTo(this._latest.x, this._latest.y);
-      //     ctx.stroke();
-      //     ctx.beginPath();
-      //     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-      //     ctx.fill();
-      //     ctx.restore();
-      // }
     });
 
     // Initialize
@@ -450,11 +431,11 @@ const useGravity = () => {
         for (i = 0; i < num; i++) {
           p = new Particle(
             Math.floor(Math.random() * screenWidth - PARTICLE_RADIUS * 2) +
-            1 +
-            PARTICLE_RADIUS,
+              1 +
+              PARTICLE_RADIUS,
             Math.floor(Math.random() * screenHeight - PARTICLE_RADIUS * 2) +
-            1 +
-            PARTICLE_RADIUS,
+              1 +
+              PARTICLE_RADIUS,
             PARTICLE_RADIUS
           );
           p.addSpeed(Vector.random());
