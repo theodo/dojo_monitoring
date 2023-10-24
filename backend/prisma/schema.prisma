@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// UNCOMMENT THIS TO USE SQLITE
+// datasource db {
+//   provider = "sqlite"
+//   url      = "file:./dev.db
+// }
+
+datasource db {
+  provider = "postgresql"
+  // Ofcourse, you should never commit your credentials in a real app
+  url      = "postgres://postgres:ChangeMe123!@localhost:5444/gravity"
+}
+
+model User {
+  id                          Int    @id @default(autoincrement())
+  name                        String @unique
+  createdParticlesCount       Int
+  createdGravityPointsCount   Int
+  gravityPointCollisionsCount Int
+}

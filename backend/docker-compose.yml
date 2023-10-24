@@ -1,40 +1,16 @@
-version: "3.4"
+version: '3.8'
 
 services:
-  postgresql:
-    container_name: database
-    image: "postgres:13.0"
+  gravity_database:
+    image: postgres:16-alpine
+    restart: always
     environment:
-      POSTGRES_USER: dojo-monitoring-user
-      POSTGRES_PASSWORD: dojo-monitoring-password
-      POSTGRES_DB: dojo-monitoring-db
-      PG_DATA: /var/lib/postgresql/data
+      - POSTGRES_DB=gravity
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=ChangeMe123!
+    ports:
+      - '5444:5432'
     volumes:
-      - pgdata:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
-  backend:
-    container_name: backend
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: development
-    ports:
-      - 3000:3000
-    environment:
-      DATABASE_CONNECTION: postgres
-      DATABASE_HOST: postgresql
-      DATABASE_USERNAME: dojo-monitoring-user
-      DATABASE_PASSWORD: dojo-monitoring-password
-      DATABASE_DATABASE: dojo-monitoring-db
-      DATABASE_PORT: "5432"
-      DATABASE_LOGGING: "true"
-      DATABASE_ENTITIES: dist/**/*.entity.js,dist/src/**/*.entity.js
-      DATABASE_MIGRATIONS: dist/migration/*.js
-      DATABASE_MIGRATIONS_DIR: migration
-      DATABASE_SYNCHRONIZE: "true"
-      NODE_ENV: development
-    depends_on:
-      - postgresql
+      - dojo-monitoring-data:/var/lib/postgresql/data:rw
 volumes:
-  pgdata:
+  dojo-monitoring-data: {}
