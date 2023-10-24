@@ -8,6 +8,11 @@ import { incrementUserStatistics } from '../../services/api';
 
 // from codepen https://codepen.io/akm2/pen/rHIsa
 
+type Vector = {
+  x: number;
+  y: number;
+};
+
 const useGravity = () => {
   useEffect(() => {
     /**
@@ -48,6 +53,13 @@ const useGravity = () => {
 
     Vector.random = function () {
       return new Vector(Math.random() * 2 - 1, Math.random() * 2 - 1);
+    };
+
+    /**
+     * @return {Vector} The subtracted vector.
+     */
+    const subtract_vectors = function (vectorA, vectorB): Vector {
+      new Vector(vectorA.x - vectorB.x, vectorA.y - vectorB.y);
     };
 
     Vector.prototype = {
@@ -236,7 +248,8 @@ const useGravity = () => {
             g.destroyed = true;
             this.gravity += g.gravity;
 
-            absorp = Vector.sub(g, this).scale((g.radius / this.radius) * 0.5);
+            const newScale = (g.radius / this.radius) * 0.5;
+            absorp = subtract_vectors(g, this).scale(newScale);
             this.addSpeed(absorp);
 
             garea = g.radius * g.radius * Math.PI;
