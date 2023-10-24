@@ -4,6 +4,7 @@
 // @ts-nocheck
 import { useEffect } from 'react';
 import * as dat from 'dat.gui';
+import { incrementUserStatistics } from '../../services/api';
 
 // from codepen https://codepen.io/akm2/pen/rHIsa
 
@@ -241,6 +242,7 @@ const useGravity = () => {
             garea = g.radius * g.radius * Math.PI;
             this.currentRadius = Math.sqrt((area + garea * 3) / Math.PI);
             this.radius = Math.sqrt((area + garea) / Math.PI);
+            incrementUserStatistics({ gravityPointCollisionsCount: 1 });
           }
 
           g.addSpeed(Vector.sub(this, g).normalize().scale(this.gravity));
@@ -427,6 +429,7 @@ const useGravity = () => {
             gravities: gravities,
           })
         );
+        incrementUserStatistics({ gravityPointsCount: 1 });
       }
 
       function mouseUp(e) {
@@ -450,6 +453,7 @@ const useGravity = () => {
       // Functions
 
       function addParticle(num) {
+        incrementUserStatistics({ particlesCount: num });
         let i, p;
         for (i = 0; i < num; i++) {
           p = new Particle(
@@ -499,7 +503,7 @@ const useGravity = () => {
       gui = new dat.GUI();
       gui
         .add(control, 'particleNum', 0, 500)
-        .step(1)
+        .step(10)
         .name('Particle Num')
         .onChange(function () {
           const n = (control.particleNum | 0) - particles.length;
