@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable prefer-const */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { useEffect } from 'react';
 import * as dat from 'dat.gui';
 
@@ -83,7 +87,7 @@ const useGravity = () => {
       },
 
       normalize: function () {
-        var m = Math.sqrt(this.x * this.x + this.y * this.y);
+        const m = Math.sqrt(this.x * this.x + this.y * this.y);
         if (m) {
           this.x /= m;
           this.y /= m;
@@ -96,19 +100,19 @@ const useGravity = () => {
       },
 
       angleTo: function (v) {
-        var dx = v.x - this.x,
+        const dx = v.x - this.x,
           dy = v.y - this.y;
         return Math.atan2(dy, dx);
       },
 
       distanceTo: function (v) {
-        var dx = v.x - this.x,
+        const dx = v.x - this.x,
           dy = v.y - this.y;
         return Math.sqrt(dx * dx + dy * dy);
       },
 
       distanceToSq: function (v) {
-        var dx = v.x - this.x,
+        const dx = v.x - this.x,
           dy = v.y - this.y;
         return dx * dx + dy * dy;
       },
@@ -147,7 +151,7 @@ const useGravity = () => {
     GravityPoint.interferenceToPoint = true;
 
     GravityPoint.prototype = (function (o) {
-      var s = new Vector(0, 0),
+      let s = new Vector(0, 0),
         p;
       for (p in o) s[p] = o[p];
       return s;
@@ -191,7 +195,7 @@ const useGravity = () => {
       render: function (ctx) {
         if (this.destroyed) return;
 
-        var particles = this._targets.particles,
+        let particles = this._targets.particles,
           i,
           len;
 
@@ -213,7 +217,7 @@ const useGravity = () => {
           return;
         }
 
-        var gravities = this._targets.gravities,
+        let gravities = this._targets.gravities,
           g,
           absorp,
           area = this.radius * this.radius * Math.PI,
@@ -253,7 +257,7 @@ const useGravity = () => {
       },
 
       _draw: function (ctx) {
-        var grd, r;
+        let grd, r;
 
         ctx.save();
 
@@ -308,7 +312,7 @@ const useGravity = () => {
     }
 
     Particle.prototype = (function (o) {
-      var s = new Vector(0, 0),
+      let s = new Vector(0, 0),
         p;
       for (p in o) s[p] = o[p];
       return s;
@@ -350,13 +354,13 @@ const useGravity = () => {
     (function () {
       // Configs
 
-      var BACKGROUND_COLOR = 'rgba(11, 51, 56, 1)',
+      const BACKGROUND_COLOR = 'rgba(11, 51, 56, 1)',
         PARTICLE_RADIUS = 1,
         G_POINT_RADIUS = 10;
 
       // Vars
 
-      var canvas,
+      let canvas,
         context,
         bufferCvs,
         bufferCtx,
@@ -379,7 +383,7 @@ const useGravity = () => {
         context = canvas.getContext('2d');
         bufferCtx = bufferCvs.getContext('2d');
 
-        var cx = canvas.width * 0.5,
+        const cx = canvas.width * 0.5,
           cy = canvas.height * 0.5;
 
         grad = context.createRadialGradient(
@@ -397,7 +401,7 @@ const useGravity = () => {
       function mouseMove(e) {
         mouse.set(e.clientX, e.clientY);
 
-        var i,
+        let i,
           g,
           hit = false;
         for (i = gravities.length - 1; i >= 0; i--) {
@@ -411,7 +415,7 @@ const useGravity = () => {
       }
 
       function mouseDown(e) {
-        for (var i = gravities.length - 1; i >= 0; i--) {
+        for (let i = gravities.length - 1; i >= 0; i--) {
           if (gravities[i].isMouseOver) {
             gravities[i].startDrag(mouse);
             return;
@@ -426,7 +430,7 @@ const useGravity = () => {
       }
 
       function mouseUp(e) {
-        for (var i = 0, len = gravities.length; i < len; i++) {
+        for (let i = 0, len = gravities.length; i < len; i++) {
           if (gravities[i].dragging) {
             gravities[i].endDrag();
             break;
@@ -435,7 +439,7 @@ const useGravity = () => {
       }
 
       function doubleClick(e) {
-        for (var i = gravities.length - 1; i >= 0; i--) {
+        for (let i = gravities.length - 1; i >= 0; i--) {
           if (gravities[i].isMouseOver) {
             gravities[i].collapse();
             break;
@@ -446,15 +450,15 @@ const useGravity = () => {
       // Functions
 
       function addParticle(num) {
-        var i, p;
+        let i, p;
         for (i = 0; i < num; i++) {
           p = new Particle(
             Math.floor(Math.random() * screenWidth - PARTICLE_RADIUS * 2) +
-            1 +
-            PARTICLE_RADIUS,
+              1 +
+              PARTICLE_RADIUS,
             Math.floor(Math.random() * screenHeight - PARTICLE_RADIUS * 2) +
-            1 +
-            PARTICLE_RADIUS,
+              1 +
+              PARTICLE_RADIUS,
             PARTICLE_RADIUS
           );
           p.addSpeed(Vector.random());
@@ -464,7 +468,7 @@ const useGravity = () => {
 
       function removeParticle(num) {
         if (particles.length < num) num = particles.length;
-        for (var i = 0; i < num; i++) {
+        for (let i = 0; i < num; i++) {
           particles.pop();
         }
       }
@@ -498,7 +502,7 @@ const useGravity = () => {
         .step(1)
         .name('Particle Num')
         .onChange(function () {
-          var n = (control.particleNum | 0) - particles.length;
+          const n = (control.particleNum | 0) - particles.length;
           if (n > 0) addParticle(n);
           else if (n < 0) removeParticle(-n);
         });
@@ -509,8 +513,8 @@ const useGravity = () => {
 
       // Start Update
 
-      var loop = function () {
-        var i, len, g, p;
+      const loop = function () {
+        let i, len, g, p;
 
         context.save();
         context.fillStyle = BACKGROUND_COLOR;
